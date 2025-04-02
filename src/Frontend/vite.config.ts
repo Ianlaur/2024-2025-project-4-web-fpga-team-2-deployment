@@ -1,15 +1,18 @@
-// filepath: vite.config.ts
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
+  root: '.',  // Explicitly set the root directory
+  build: {
+    outDir: 'dist',  // Output directory
+  },
   plugins: [
     react(),
     VitePWA({
       registerType: "autoUpdate",
       workbox: {
-        globPatterns: ["**/*.{js,css,html,png,svg,ico,txt,json}"],
+        globPatterns: ["**/*.{js,css,html,png,svg,ico,txt,json,ts}"],
       },
       manifest: {
         name: "PWA Education App",
@@ -28,6 +31,10 @@ export default defineConfig({
             type: "image/png",
           },
         ],
+      },
+      devOptions: {
+        enabled: true,
+        type: "module",
       },
     }),
   ],
