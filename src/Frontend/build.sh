@@ -3,20 +3,12 @@ echo "Starting improved manual build..."
 echo "Current directory: $(pwd)"
 echo "Files in current directory:"
 ls -la
-echo "Files in public directory (if it exists):"
-ls -la public || echo "public directory doesn't exist"
 
 # Create output directory
 mkdir -p dist
 
-# Copy index.html from public directory to dist
-if [ -f public/index.html ]; then
-  cp public/index.html dist/
-  echo "Using public/index.html"
-else
-  echo "No index.html found in public directory"
-  # Create a simple placeholder
-  cat > dist/index.html << EOF
+# Create a simple placeholder regardless of whether public/index.html exists
+cat > dist/index.html << 'EOF'
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +30,7 @@ else
   <script>
     const API_URL = 'https://two024-2025-project-4-web-fpga-team-2.onrender.com';
     
-    fetch(\`\${API_URL}/student-circuits\`)
+    fetch(`${API_URL}/student-circuits`)
       .then(response => response.json())
       .then(data => {
         document.getElementById('loading').style.display = 'none';
@@ -46,7 +38,7 @@ else
         
         data.forEach(circuit => {
           const li = document.createElement('li');
-          li.textContent = \`\${circuit.name} - \${circuit.description}\`;
+          li.textContent = `${circuit.name} - ${circuit.description}`;
           circuitsList.appendChild(li);
         });
       })
@@ -58,13 +50,14 @@ else
 </body>
 </html>
 EOF
-fi
+
+echo "Created index.html in dist directory"
 
 # List the contents of the dist directory
 echo "Contents of dist directory:"
 ls -la dist/
 
-# Copy any remaining public files
+# Copy any public files if they exist
 if [ -d "public" ]; then
   cp -r public/* dist/ || true
   echo "Copied public files"
