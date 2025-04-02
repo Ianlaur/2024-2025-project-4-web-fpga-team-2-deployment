@@ -1,6 +1,10 @@
 #!/bin/bash
 echo "Starting improved manual build..."
-npm install
+echo "Current directory: $(pwd)"
+echo "Files in current directory:"
+ls -la
+echo "Files in public directory (if it exists):"
+ls -la public || echo "public directory doesn't exist"
 
 # Create output directory
 mkdir -p dist
@@ -56,9 +60,14 @@ else
 EOF
 fi
 
+# List the contents of the dist directory
+echo "Contents of dist directory:"
+ls -la dist/
+
 # Copy any remaining public files
 if [ -d "public" ]; then
   cp -r public/* dist/ || true
+  echo "Copied public files"
 fi
 
 echo "Manual build completed!"
