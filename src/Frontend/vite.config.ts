@@ -3,9 +3,10 @@ import react from "@vitejs/plugin-react-swc";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
-  root: '.',  // Explicitly set the root directory
+  root: '.',
+  base: '/2024-2025-project-4-web-fpga-team-2-deployment/',
   build: {
-    outDir: 'dist',  // Output directory
+    outDir: 'dist',
   },
   plugins: [
     react(),
