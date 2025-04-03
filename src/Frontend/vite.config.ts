@@ -4,7 +4,7 @@ import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
   root: '.',
-  base: '/2024-2025-project-4-web-fpga-team-2-deployment/',
+  base: '2024-2025-project-4-web-fpga-team-2-deployment/',
   build: {
     outDir: 'dist',
   },
